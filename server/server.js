@@ -2,7 +2,8 @@ const express = require("express");
 const cors = require("cors");
 const app = express();
 app.use(cors());
-const port = 3000;
+const dotenv = require('dotenv');
+dotenv.config();
 const path = require("path");
 app.use(express.static(path.join(__dirname, "../client")));
 const bodyParser = require("body-parser");
@@ -14,7 +15,7 @@ const managerRouter = require("./routes/manage.js");
 const authRouter = require("./routes/auth.js");
 const searchRouter = require("./routes/search.js");
 mongoose
-  .connect("mongodb://127.0.0.1:27017/bookstore", {
+  .connect(process.env.MONGO_URL + "/bookstore", {
     useNewUrlParser: true,
     useUnifiedTopology: true,
   })
@@ -44,6 +45,6 @@ app.get("/listbook", async (req, res) => {
       .json({ error: "An error occurred while searching for books." });
   }
 });
-app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`);
+app.listen(process.env.PORT, () => {
+  console.log(`Example app listening on port ${process.env.PORT}`);
 });
