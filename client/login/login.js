@@ -23,7 +23,7 @@ document.addEventListener("DOMContentLoaded", function () {
       password: hashedPassword,
     };
     // console.log(formData);
-    await fetch("http://localhost:3000/api/login", {
+    await fetch("/api/login", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
