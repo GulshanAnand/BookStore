@@ -135,7 +135,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         card.className = "card mx-1 my-1 p-1 bg-light";
 
         const imageElement = document.createElement("img");
-        imageElement.src = "http://localhost:3000/images/" + bookData.imagename;
+        imageElement.src = "https://bookstore-gjz0.onrender.com/images/" + bookData.imagename;
         imageElement.alt = "Card image cap";
         imageElement.className = "card-body";
 
@@ -280,7 +280,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
               const imageElement = document.createElement("img");
               imageElement.src =
-                "http://localhost:3000/images/" + bookData.imagename;
+                "https://bookstore-gjz0.onrender.com/images/" + bookData.imagename;
               imageElement.alt = "Card image cap";
               imageElement.className = "card-body";
 

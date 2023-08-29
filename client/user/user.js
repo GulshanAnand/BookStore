@@ -25,7 +25,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
           const imageElement = document.createElement("img");
           imageElement.src =
-            "http://localhost:3000/images/" + bookData.imagename;
+            "https://bookstore-gjz0.onrender.com/images/" + bookData.imagename;
           imageElement.alt = "Card image cap";
           imageElement.className = "card-body";
 
