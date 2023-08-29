@@ -11,7 +11,6 @@ Welcome to the Bookstore Web App! This web application allows users to search fo
   - [User Features](#user-features)
   - [Manager Features](#manager-features)
 - [Contributing](#contributing)
-- [License](#license)
 
 ## Getting Started
 
