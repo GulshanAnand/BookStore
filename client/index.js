@@ -75,6 +75,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   const profileButton = document.getElementById("btn-profile");
 
   const token = getCookie("token");
+  
   // console.log(token);
   if (token != null) {
     loginButton.style.display = "none";
