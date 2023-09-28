@@ -7,6 +7,7 @@ router.post("/", async (req, res) => {
   try {
     const foundBooks = await BookModel.find({
       title: { $regex: searchTerm, $options: "i" },
+      available: true
     }).select("-_id title");
     res.json(foundBooks);
   } catch (error) {
@@ -22,6 +23,7 @@ router.post("/books", async (req, res) => {
   try {
     const foundBooks = await BookModel.find({
       title: { $regex: searchTerm, $options: "i" },
+      available: true
     });
 
     res.json(foundBooks);

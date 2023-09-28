@@ -46,4 +46,28 @@ router.post("/addbook", upload.single("image"), async (req, res) => {
   }
 });
 
+router.post("/toggle", async (req, res) => {
+  const { _id } = req.body;
+  const book = await BookModel.findOne({_id});
+  if (!book) {
+    throw new Error("Book not found");
+  }
+  book.available = (!(book.available));
+  await book.save();
+  return res.status(200).json({ status: 100, message: "Availability Uddated" });
+});
+
+router.get("/listallbooks", async (req, res) => {
+  try {
+    const books = await BookModel.find({});
+    // console.log(books);
+    res.json(books);
+  } catch (error) {
+    console.error("Error:", error);
+    res
+      .status(500)
+      .json({ error: "An error occurred while searching for books." });
+  }
+});
+
 module.exports = router;

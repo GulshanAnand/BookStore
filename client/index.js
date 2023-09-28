@@ -57,17 +57,17 @@ document.addEventListener("click", (event) => {
 document.addEventListener("DOMContentLoaded", async () => {
   const cardImgTops = document.querySelectorAll(".card-img-top");
 
-  cardImgTops.forEach((cardImgTop) => {
-    cardImgTop.addEventListener("click", async () => {
-      try {
-        // const response = await fetch("/api/data");
-        // const data = await response.json();
-        window.location.href = `bookreview/bookreview.html?`;
-      } catch (error) {
-        console.error("Error: ", error);
-      }
-    });
-  });
+  // cardImgTops.forEach((cardImgTop) => {
+  //   cardImgTop.addEventListener("click", async () => {
+  //     try {
+  //       // const response = await fetch("/api/data");
+  //       // const data = await response.json();
+  //       window.location.href = `bookreview/bookreview.html?`;
+  //     } catch (error) {
+  //       console.error("Error: ", error);
+  //     }
+  //   });
+  // });
 
   const loginButton = document.getElementById("btn-login");
   const signupButton = document.getElementById("btn-signup");
@@ -96,7 +96,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   const userID = getCookie("userID");
   const cartBooks = [];
-  if(userID){
+  if(userID && userID != "undefined"){
     await fetch("/api/cartids", {
       method: "POST",
       headers: {

@@ -32,8 +32,11 @@ document.addEventListener("DOMContentLoaded", function () {
     })
       .then((response) => response.json())
       .then((data) => {
-        setCookie("token", data.token);
-        setCookie("userID", data.userID);
+        if(data.token){
+          setCookie("token", data.token);
+          setCookie("userID", data.userID);
+        }
+        
         // console.log("Response from server:", data);
         if (data.token){
           if(data.ismanager) window.location.href = "../manager/manager.html";

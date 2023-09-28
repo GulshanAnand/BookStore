@@ -157,9 +157,113 @@ function getStatsComp() {
 
 const contentDiv = document.getElementById("main-content");
 const addBookDiv = document.getElementById("add_book");
+const addAllBooksDiv = document.getElementById("all_books");
 // const addStaffDiv = document.getElementById("add_staff");
 // const statsDiv = document.getElementById("stats");
 const logoutButton = document.getElementById("logout");
+document.addEventListener("DOMContentLoaded", function (event) {
+  
+addAllBooksDiv.addEventListener("click", async function (event) {
+  event.preventDefault();
+  const newdiv = ` <div class="container flex">
+      <div class="row" id="bookListContainer"></div>
+    </div>`;
+    contentDiv.innerHTML = newdiv;
+  
+  // contentDiv.innerHTML = getAllBooksComp();
+    await fetch("/manage/listallbooks", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((response) => response.json())
+      .then((bookList) => {
+        // console.log(bookList);
+        const bookListContainer = document.getElementById("bookListContainer");
+
+        // Loop through the book data and create cards for each book
+        for (const bookData of bookList) {
+          const cardDiv = document.createElement("div");
+          cardDiv.className = "col-sm-6 col-md-4 col-lg-3 card-img-top";
+
+          const card = document.createElement("div");
+          card.className = "card mx-1 my-1 p-1 bg-light";
+
+          const cardBody = document.createElement("div");
+          cardBody.className = "card-body";
+
+          const titleElement = document.createElement("h5");
+          titleElement.className = "card-title mb-1";
+          titleElement.textContent = bookData.title;
+
+          const authorElement = document.createElement("p");
+          authorElement.className = "card-text text-muted mb-1";
+          authorElement.textContent = bookData.author;
+
+          const publicationYearElement = document.createElement("p");
+          publicationYearElement.className = "card-text text-muted mb-2";
+          publicationYearElement.textContent = `Publication : ${bookData.publisher}`;
+
+          const priceElement = document.createElement("h6");
+          priceElement.className = "card-subtitle mb-2 text-primary";
+          priceElement.textContent = `$ ${bookData.price}`;
+
+          const buttonElement = document.createElement("button");
+          buttonElement.className = "btn btn-outline-primary btn-sm";
+          if(bookData.available) buttonElement.innerHTML = "Disable";
+          else buttonElement.innerHTML = "Enable";
+
+          buttonElement.addEventListener("click", async (event) => {
+            const fdata = {
+              _id: bookData._id
+            };
+            const status = buttonElement.innerHTML;
+            await fetch("/manage/toggle", {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify(fdata), // JSON.stringify the data
+            }).then((res) => {
+              if (res.status === 200) {
+                return res.json(); // Parse the response JSON
+              } else {
+                alert("Failed to toggle availability");
+              }
+            }).then((data) => {
+              // Handle the response data if needed
+              // console.log(data);
+            }).catch((error) => {
+              console.error("Error:", error);
+            });            
+            if(status == "Enable"){
+              buttonElement.innerHTML = "Disable";
+            }
+            else{
+              buttonElement.innerHTML = "Enable";
+            }
+          });
+
+          cardBody.appendChild(titleElement);
+          cardBody.appendChild(authorElement);
+          cardBody.appendChild(publicationYearElement);
+          cardBody.appendChild(priceElement);
+          cardBody.appendChild(buttonElement);
+          card.appendChild(cardBody);
+
+          cardDiv.appendChild(card);
+
+          bookListContainer.appendChild(cardDiv);
+        }
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+      });
+
+  });
+});
+
 
 addBookDiv.addEventListener("click", function (event) {
   event.preventDefault();
@@ -183,7 +287,7 @@ addBookDiv.addEventListener("click", function (event) {
       }) // Assuming the response is JSON
       .then(data => {
           // You can now access the response data in the 'data' variable
-          console.log(data);
+          // console.log(data);
           alert("Book added successfully");
           window.location.href = "./manager.html";
           // Here, you can write code to handle the response data as needed

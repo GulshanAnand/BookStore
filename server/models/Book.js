@@ -29,6 +29,10 @@ const BookSchema = new mongoose.Schema({
   imagename: {
     type: String,
   },
+  available: {
+    type: Boolean,
+    default: true,
+  },
   reviews: [
     {
       userid: {
